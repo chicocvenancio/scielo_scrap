@@ -1,7 +1,14 @@
+# -*- coding: utf-8 -*-
 from bs4 import BeautifulSoup as BS
 import requests
+import sys
 
-response = requests.get('http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0101-60832013000300005&lng=en&nrm=iso&tlng=pt')
-soup = BS(response.text)
-[sup.extract() for sup in soup.find_all('sup')]
-print(soup.find('div', {'class':'index,pt'}).get_text().split('Introdução')[1].split('Referências')[0])
+
+def main(argv):
+    response = requests.get(argv[1])
+    soup = BS(response.text)
+    [sup.extract() for sup in soup.find_all('sup')]
+    print(soup.find('div', {'class':'index,pt'}).get_text().split(u'Introdução')[1].split(u'Referências')[0])
+
+if __name__ == "__main__":
+   main(sys.argv[1:])
