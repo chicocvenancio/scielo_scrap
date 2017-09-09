@@ -6,7 +6,7 @@ import sys
 
 def main(argv):
     response = requests.get(argv[1])
-    soup = BS(response.text)
+    soup = BS(response.text, 'html')
     [sup.extract() for sup in soup.find_all('sup')]
     print(soup.find('div', {'class':'index,pt'}).get_text().split(u'Introdução')[1].split(u'Referências')[0])
 
